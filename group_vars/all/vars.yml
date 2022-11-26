@@ -1,0 +1,7 @@
+---
+admins:
+    - watshy
+ 
+root_authorized_keys: "{{ admins | map('extract', authorized_keys)|flatten|join('\n') }}"
+
+github_authorized_keys: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDeqDcvF9L9pRQ+0UOPoGL075JrbRX2upq34MWvHYVSg william.queva@epitech.digital"

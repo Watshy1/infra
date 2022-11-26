@@ -1,0 +1,12 @@
+---
+
+- name: Add the user 'github'
+  user:
+    name: github
+    group: github
+
+- name: Add authorized_keys to github
+  authorized_key:
+    user: github
+    state: present
+    key: "{{ github_authorized_keys }}"
