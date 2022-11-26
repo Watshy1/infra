@@ -1,5 +1,6 @@
 ---
 
+# Repo Portfolio
 - name: Clone Portfolio master
   git:
     repo: https://github.com/Watshy1/Portfolio.git
@@ -8,6 +9,29 @@
     version: master
   become: true
   become_user: github
+
+# Repo Restaurants
+- name: Configure service restaurants
+  copy:
+    content: |
+      [Unit]
+      Description=Gunicorn instance to serve restaurants project
+      After=network.target
+
+      [Service]
+      User=github
+      Group=www-data
+      WorkingDirectory=/home/github/Restaurants
+      Environment="PATH=/home/github/Restaurants/.venv/bin"
+      ExecStart=/home/github/Restaurants/.venv/bin/gunicorn --workers 3 --timeout 120 --bind unix:restaurants.sock -m 007 hello:app
+
+      [Install]
+      WantedBy=multi-user.target
+    dest: /etc/systemd/system/restaurants.service
+    owner: root
+    group: root
+    mode: 0755
+  notify: reload daemon
 
 - name: Delete directory Restaurants
   file:
@@ -32,4 +56,4 @@
   command: /home/github/Restaurants/.venv/bin/python -m pip install Flask gunicorn overpy requests
   become: true
   become_user: github
-  notify: start restaurants
+  notify: restart restaurants

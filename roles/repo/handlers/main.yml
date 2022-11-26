@@ -1,6 +1,9 @@
 ---
 
-- name: start restaurants
+- name: restart restaurants
   service:
     name: restaurants
-    state: started
+    state: restarted
+
+- name: reload daemon
+  command: systemctl daemon-reload
