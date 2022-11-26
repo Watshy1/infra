@@ -1,0 +1,35 @@
+---
+
+- name: Clone Portfolio master
+  git:
+    repo: https://github.com/Watshy1/Portfolio.git
+    dest: /home/github/Portfolio
+    single_branch: yes
+    version: master
+  become: true
+  become_user: github
+
+- name: Delete directory Restaurants
+  file:
+    path: /home/github/Restaurants
+    state: absent
+
+- name: Clone Restaurants master
+  git:
+    repo: https://github.com/Watshy1/Restaurants.git
+    dest: /home/github/Restaurants
+    single_branch: yes
+    version: master
+  become: true
+  become_user: github
+
+- name: Create env for Restaurants
+  command: python3 -m venv /home/github/Restaurants/.venv
+  become: true
+  become_user: github
+
+- name: Install dependences for Restaurants
+  command: /home/github/Restaurants/.venv/bin/python -m pip install Flask gunicorn overpy requests
+  become: true
+  become_user: github
+  notify: start restaurants

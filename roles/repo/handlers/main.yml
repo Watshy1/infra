@@ -1,0 +1,6 @@
+---
+
+- name: start restaurants
+  service:
+    name: restaurants
+    state: started

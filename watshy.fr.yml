@@ -12,6 +12,9 @@
     - name: Users setup
       include_role: name=users
 
+    - name: Repo setup
+      include_role: name=repo
+
     - name: Setup watshyFr
       include_role: name=nginx
       vars:
