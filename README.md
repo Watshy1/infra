@@ -1,4 +1,4 @@
-# Ansible Infra
+# Infra
 Playbooks for deploy watshy.fr, etc...
 
 
